@@ -1,13 +1,13 @@
 //
-//  ViewController.swift
+//  WeatherVC.swift
 //  Weather
 //
-//  Created by Harley on 10/15/17.
+//  Created on 10/15/17.
 //
 
 import Cocoa
 
-class ViewController: NSViewController {
+class WeatherVC: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
