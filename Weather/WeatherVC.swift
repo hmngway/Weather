@@ -14,6 +14,11 @@ class WeatherVC: NSViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear() {
+        // Set the background color of the popover view
+        self.view.layer?.backgroundColor = CGColor(red: 0.29, green: 0.72, blue: 0.98, alpha: 1.00)
+    }
 
     override var representedObject: Any? {
         didSet {
