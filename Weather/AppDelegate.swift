@@ -18,6 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Allow the status item to perform an action
         statusItem.action = #selector(AppDelegate.displayPopUp(_:))
+        
+        WeatherService.instance.downloadWeatherDetails()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
