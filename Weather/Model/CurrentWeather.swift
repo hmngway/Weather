@@ -10,11 +10,13 @@ import SwiftyJSON
 
 class CurrentWeather {
     
+    // Variables
     fileprivate var _cityName: String!
     fileprivate var _date: String!
     fileprivate var _weatherType: String!
     fileprivate var _currentTemp: Int!
     
+    // Getters & setters
     var cityName: String {
         get {
             return _cityName
@@ -47,6 +49,7 @@ class CurrentWeather {
         }
     }
     
+    // Functions
     class func loadCurrentWeatherFromData(_ APIData: Data) -> CurrentWeather {
         
         let currentWeather = CurrentWeather()
