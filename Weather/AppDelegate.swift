@@ -6,14 +6,26 @@
 //
 
 import Cocoa
+import CoreLocation
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, CLLocationManagerDelegate {
 
     // Variables
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
+        // Set the delegate
+        locationManager.delegate = self
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.distanceFilter = 1000
+        locationManager.startUpdatingLocation()
+        
         statusItem.button?.title = "--°"
         
         // Allow the status item to perform an action
@@ -22,6 +34,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Set the timer for updating data
         let updateWeatherData = Timer.scheduledTimer(timeInterval: 60 * 15, target: self, selector: #selector(AppDelegate.downloadWeatherData), userInfo: nil, repeats: true)
         updateWeatherData.tolerance = 60
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentLocation = locations[locations.count - 1]
+        Location.instance.latitude = currentLocation.coordinate.latitude
+        Location.instance.longitude = currentLocation.coordinate.longitude
         
         downloadWeatherData()
     }
@@ -32,12 +50,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             WeatherService.instance.downloadForecast(completed: {
                 NotificationCenter.default.post(name: NOTIF_DOWNLOAD_COMPLETE, object: nil)
+                self.locationManager.stopUpdatingLocation()
             })
         }
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
     }
     
     // Called when the status item button is clicked
