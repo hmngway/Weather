@@ -822,11 +822,41 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mgQ-md-X9p">
+                                <rect key="frame" x="332" y="3" width="66" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="1OJ-Vg-3Xd"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Bm8-UB-Wcy">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="quitBtnClicked:" target="XfG-lQ-9wD" id="y4B-Bi-kJL"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mDr-fW-oc3">
+                                <rect key="frame" x="2" y="3" width="224" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ycz-nY-I6e"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Powered by OpenWeatherMap" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tlI-0x-Esb">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="poweredByBtnClicked:" target="XfG-lQ-9wD" id="cv2-vB-4F2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="mgQ-md-X9p" secondAttribute="trailing" constant="8" id="1bw-zx-DZI"/>
                             <constraint firstItem="cc6-JN-WDN" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="Enb-Ci-8K6"/>
                             <constraint firstAttribute="trailing" secondItem="zQU-0c-xHx" secondAttribute="trailing" constant="20" id="Mz2-1H-pMr"/>
                             <constraint firstItem="zQU-0c-xHx" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Wqg-Ch-Q7k"/>
+                            <constraint firstAttribute="bottom" secondItem="mDr-fW-oc3" secondAttribute="bottom" constant="10" id="ecQ-n5-ZBs"/>
+                            <constraint firstItem="mDr-fW-oc3" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="8" id="gl1-Tv-Hhu"/>
+                            <constraint firstAttribute="bottom" secondItem="mgQ-md-X9p" secondAttribute="bottom" constant="10" id="jQo-gp-DZZ"/>
                             <constraint firstAttribute="trailing" secondItem="cc6-JN-WDN" secondAttribute="trailing" constant="20" id="mFx-rN-eC1"/>
                             <constraint firstItem="cc6-JN-WDN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="oKj-Ae-LnO"/>
                             <constraint firstItem="zQU-0c-xHx" firstAttribute="top" secondItem="cc6-JN-WDN" secondAttribute="bottom" constant="20" id="ufE-Bh-YzV"/>
@@ -836,6 +866,8 @@
                         <outlet property="collectionView" destination="fo1-cp-AFr" id="t6e-0C-bgt"/>
                         <outlet property="dateLbl" destination="XQZ-lk-84a" id="qig-4O-Jyq"/>
                         <outlet property="locationLbl" destination="0zY-fN-h3S" id="j4A-zN-0Je"/>
+                        <outlet property="poweredByBtn" destination="mDr-fW-oc3" id="cju-Ls-IQN"/>
+                        <outlet property="quitBtn" destination="mgQ-md-X9p" id="QwP-hR-8AG"/>
                         <outlet property="tempLbl" destination="HBH-xH-oHF" id="zmm-XX-fyX"/>
                         <outlet property="weatherConditionLbl" destination="cDC-FH-4Md" id="Fpi-h1-WFl"/>
                         <outlet property="weatherImage" destination="Xg3-77-dPe" id="3uT-mM-HFj"/>

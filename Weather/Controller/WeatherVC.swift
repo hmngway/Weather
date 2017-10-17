@@ -16,7 +16,9 @@ class WeatherVC: NSViewController {
     @IBOutlet weak var weatherImage: NSImageView!
     @IBOutlet weak var weatherConditionLbl: NSTextField!
     @IBOutlet weak var collectionView: NSCollectionView!
-
+    @IBOutlet weak var poweredByBtn: NSButton!
+    @IBOutlet weak var quitBtn: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,8 +34,23 @@ class WeatherVC: NSViewController {
         self.view.layer?.backgroundColor = CGColor(red: 0.29, green: 0.72, blue: 0.98, alpha: 1.00)
         
         updateUI()
+        
+        // Set the quit button style
+        quitBtn.styleButtonText(button: quitBtn, buttonName: "Quit", fontColor: .darkGray, alignment: .center, font: "Avenir Next", size: 11)
+        
+        // Set the powered by button style
+        poweredByBtn.styleButtonText(button: poweredByBtn, buttonName: "Powered by OpenWeatherMap", fontColor: .darkGray, alignment: .center, font: "Avenir Next", size: 11)
     }
-
+    
+    @IBAction func poweredByBtnClicked(_ sender: Any) {
+        let url = URL(string: API_HOMEPAGE)!
+        NSWorkspace.shared.open(url)
+    }
+    
+    @IBAction func quitBtnClicked(_ sender: Any) {
+        NSApplication.shared.terminate(nil)
+    }
+    
     func updateUI() {
         let weather = WeatherService.instance.currentWeather
         dateLbl.stringValue = weather.date
@@ -51,7 +68,10 @@ extension WeatherVC: NSCollectionViewDelegate, NSCollectionViewDataSource, NSCol
         
         let forecastItem = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "WeatherCell"), for: indexPath)
         
-        return forecastItem
+        guard let forecastCell = forecastItem as? WeatherCell else { return forecastItem }
+        forecastCell.configureCell(weatherCell: WeatherService.instance.forecast[indexPath.item])
+        
+        return forecastCell
     }
     
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
@@ -59,7 +79,7 @@ extension WeatherVC: NSCollectionViewDelegate, NSCollectionViewDataSource, NSCol
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return WeatherService.instance.forecast.count
     }
     
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
