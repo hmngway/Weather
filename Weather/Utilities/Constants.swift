@@ -10,6 +10,7 @@ import Foundation
 typealias DownloadComplete = () -> ()
 
 let API_HOMEPAGE = "http://openweathermap.org"
+let NOTIF_DOWNLOAD_COMPLETE = NSNotification.Name("dataDownloaded")
 
 let API_KEY = "&appid=845638eb53a9496b4711e782312e61f3"
 let API_UNITS = "&units=imperial"

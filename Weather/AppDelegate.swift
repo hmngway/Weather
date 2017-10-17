@@ -19,11 +19,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Allow the status item to perform an action
         statusItem.action = #selector(AppDelegate.displayPopUp(_:))
         
+        // Set the timer for updating data
+        let updateWeatherData = Timer.scheduledTimer(timeInterval: 60 * 15, target: self, selector: #selector(AppDelegate.downloadWeatherData), userInfo: nil, repeats: true)
+        updateWeatherData.tolerance = 60
+        
+        downloadWeatherData()
+    }
+    
+    @objc func downloadWeatherData() {
         WeatherService.instance.downloadWeatherDetails {
             self.statusItem.button?.title = "\(WeatherService.instance.currentWeather.currentTemp)°"
             
             WeatherService.instance.downloadForecast(completed: {
-                
+                NotificationCenter.default.post(name: NOTIF_DOWNLOAD_COMPLETE, object: nil)
             })
         }
     }

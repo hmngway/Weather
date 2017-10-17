@@ -30,6 +30,10 @@ class WeatherVC: NSViewController {
     }
     
     override func viewDidAppear() {
+        
+        // Add the observer for data download completion
+        NotificationCenter.default.addObserver(self, selector: #selector(WeatherVC.dataDownloadedNotif(_:)), name: NOTIF_DOWNLOAD_COMPLETE, object: nil)
+        
         // Set the background color of the popover view
         self.view.layer?.backgroundColor = CGColor(red: 0.29, green: 0.72, blue: 0.98, alpha: 1.00)
         
@@ -40,6 +44,15 @@ class WeatherVC: NSViewController {
         
         // Set the powered by button style
         poweredByBtn.styleButtonText(button: poweredByBtn, buttonName: "Powered by OpenWeatherMap", fontColor: .darkGray, alignment: .center, font: "Avenir Next", size: 11)
+    }
+    
+    override func viewDidDisappear() {
+        // Remove the observer for data download completion
+        NotificationCenter.default.removeObserver(self, name: NOTIF_DOWNLOAD_COMPLETE, object: nil)
+    }
+    
+    @objc func dataDownloadedNotif(_ notif: Notification) {
+        updateUI()
     }
     
     @IBAction func poweredByBtnClicked(_ sender: Any) {
@@ -58,6 +71,7 @@ class WeatherVC: NSViewController {
         locationLbl.stringValue = weather.cityName
         weatherConditionLbl.stringValue = weather.weatherType
         weatherImage.image = NSImage(named: NSImage.Name(rawValue: weather.weatherType))
+        collectionView.reloadData()
     }
 
 }
